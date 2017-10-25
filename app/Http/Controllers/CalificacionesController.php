@@ -56,6 +56,7 @@ class CalificacionesController extends Controller
      * @param $alumno El id del alumno sobre el que se buscaran las calificaciones
      */
     public function show(Request $request, $alumno){
+        //Query de consulta a base de datos
         $calificaciones = DB::table('t_califications')
             ->join('t_alumnos',function($join){
                 $join->on('t_alumnos.id_t_usuarios','=','t_califications.id_t_usuarios');
@@ -64,12 +65,19 @@ class CalificacionesController extends Controller
                 $join->on('t_materias.id_t_materias','=','t_califications.id_t_usuarios');
             })->select('t_alumnos.nombre','t_alumnos.ap_paterno','t_materias.nombre as materia','t_califications.calificacion','t_califications.fecha_registro')
             ->where('t_califications.id_t_usuarios','=',$alumno)->get();
+        //TODO: Cambiar query por Eloquent
+        //Obteniendo promedio
         $sumatoria = 0;
+        $index = 0;
         foreach($calificaciones as $calificacion){
             $sumatoria += $calificacion->calificacion;
+            //parseando fecha a d/m/Y
+            $calificaciones[$index]->fecha_registro =  DateTime::createFromFormat('Y-m-d', $calificaciones[$index]->fecha_registro)->format('d/m/Y');
+            $index++;
         }
         $promedio = $sumatoria/count($calificaciones);
         $calificaciones[] = ["promedio"=>$promedio];
         return response()->json($calificaciones);
     }
+    
 }
