@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::group(['prefix'=>'v1','middleware'=>'auth:api'],function(){
     Route::post('calificacion','CalificacionesController@store');
     Route::get('calificacion/{alumno}','CalificacionesController@show');
+    Route::put('calificacion/{idcalificacion}','CalificacionesController@update');
+    Route::delete('calificacion/{idcalificacion}','CalificacionesController@destroy');
 });
 
 Route::post('register', 'Auth\RegisterController@register');

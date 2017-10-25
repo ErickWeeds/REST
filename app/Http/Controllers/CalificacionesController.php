@@ -79,5 +79,27 @@ class CalificacionesController extends Controller
         $calificaciones[] = ["promedio"=>$promedio];
         return response()->json($calificaciones);
     }
-    
+
+    public function update(Request $request, $idcalificacion){
+        $calificacion = Calification::where('id_t_calificaciones','=',$idcalificacion)->get();
+        if(!is_null($calificacion)){
+            DB::table('t_califications')
+            ->where('id_t_calificaciones',$idcalificacion)
+            ->update(['calificacion'=>$request->get('calificacion')]);
+            return response()->json(["success"=>"ok","msg"=>"calificacion actualizada"]);
+        }else{
+            return response()->json(["success"=>"fail","msg"=>"No existe la calificacion con el identificador enviado"]);
+        }
+    }
+    public function destroy(Request $request, $idcalificacion){
+        $calificacion = Calification::where('id_t_calificaciones','=',$idcalificacion)->get();
+        if(!is_null($calificacion)){
+            DB::table('t_califications')
+                ->where('id_t_calificaciones',$idcalificacion)
+                ->delete();
+            return response()->json(["success"=>"ok","msg"=>"calificacion eliminada"]);
+        }else{
+            return response()->json(["success"=>"fail","msg"=>"No existe la calificacion con el identificador enviado"]);
+        }
+    }
 }
