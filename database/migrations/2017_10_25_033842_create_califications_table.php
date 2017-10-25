@@ -13,7 +13,7 @@ class CreateCalificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('califications', function (Blueprint $table) {
+        Schema::create('t_califications', function (Blueprint $table) {
             $table->increments('id_t_calificaciones');
             $table->integer('id_t_materias')->unsigned();
             $table->integer('id_t_usuarios')->unsigned();
@@ -21,8 +21,8 @@ class CreateCalificationsTable extends Migration
             $table->date('fecha_registro');
             $table->timestamps();
 
-            $table->foreign('id_t_materias')->references('t_materias')->on('id_t_materias');
-            $table->foreign('id_t_usuarios')->references('t_alumnos')->on('id_t_usuarios');
+            $table->foreign('id_t_materias')->references('id_t_materias')->on('t_materias');
+            $table->foreign('id_t_usuarios')->references('id_t_usuarios')->on('t_alumnos');
         });
     }
 

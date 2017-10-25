@@ -13,7 +13,7 @@ class CreateMateriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('materias', function (Blueprint $table) {
+        Schema::create('t_materias', function (Blueprint $table) {
             $table->increments('id_t_materias');
             $table->string('nombre',80);
             $table->integer('activo');

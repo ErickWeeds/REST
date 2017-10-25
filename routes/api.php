@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix'=>'api/v1','middleware'=>'auth:api'],function(){
-    Route::post('/calificacion','CalificacionesController@store');
+Route::group(['prefix'=>'v1','middleware'=>'auth:api'],function(){
+    Route::post('calificacion','CalificacionesController@store');
 });
+
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
